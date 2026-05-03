@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import '../../core/routing/routes.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -50,7 +52,7 @@ class WelcomeScreen extends StatelessWidget {
               SizedBox(height: 30),
               // btn
               ElevatedButton(
-                onPressed: () => {},
+                onPressed: () => context.go(PageRoutes.home),
                 child: Text(
                   'Get Started',
                   style: TextStyle(fontSize: 16, color: Colors.white),
