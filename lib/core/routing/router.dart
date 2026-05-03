@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nectar/modules/signin/signin_screen.dart';
 import '../../modules/home/home_screen.dart';
 import '../../modules/welcome/welcome_screen.dart';
 import 'routes.dart';
@@ -24,6 +25,11 @@ class AppRouter {
       path: PageRoutes.home,
       name: AppRoutes.home,
       builder: (context, state) => const HomeScreen(),
+    ),
+    GoRoute(
+      path: PageRoutes.login,
+      name: AppRoutes.login,
+      builder: (context, state) => const SigninScreen(),
     ),
   ];
 }
