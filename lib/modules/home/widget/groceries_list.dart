@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:nectar/core/routing/routes.dart';
 
 class GroceriesList extends StatefulWidget {
   const GroceriesList({super.key});
@@ -99,37 +101,40 @@ class _GroceriesListState extends State<GroceriesList> {
             itemBuilder: (context, index) {
               final item = groceriesSmall[index];
 
-              return Padding(
-                padding: EdgeInsets.only(left: index == 0 ? 16 : 8, right: 8),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Color(item['color']),
-                    borderRadius: BorderRadius.circular(18),
-                  ),
-                  padding: const EdgeInsets.all(14),
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        item['image']!,
-                        height: 70,
-                        fit: BoxFit.contain,
-                      ),
-                      const SizedBox(width: 16),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            item['title']!,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
+              return InkWell(
+                onTap: () => context.push(PageRoutes.productDetail),
+                child: Padding(
+                  padding: EdgeInsets.only(left: index == 0 ? 16 : 8, right: 8),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color(item['color']),
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                    padding: const EdgeInsets.all(14),
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          item['image']!,
+                          height: 70,
+                          fit: BoxFit.contain,
+                        ),
+                        const SizedBox(width: 16),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              item['title']!,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               );
