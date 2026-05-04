@@ -31,6 +31,30 @@ class _GroceriesListState extends State<GroceriesList> {
     },
   ];
 
+  final List<Map<String, dynamic>> groceriesSmall = const [
+    {
+      'title': 'Pulses',
+      'subtitle': '1kg, Priceg',
+      'image': 'assets/images/items/10.png',
+      'price': '\$4.99',
+      'color': 0xFFfff2e6,
+    },
+    {
+      'title': 'Rice',
+      'subtitle': '1kg, Priceg',
+      'image': 'assets/images/items/11.png',
+      'price': '\$4.99',
+      'color': 0xFFedf7f1,
+    },
+    {
+      'title': 'Sugar',
+      'subtitle': '1kg, Priceg',
+      'image': 'assets/images/items/09.png',
+      'price': '\$4.99',
+      'color': 0xFFfff2e6,
+    },
+  ];
+
   @override
   void dispose() {
     _pageController.dispose();
@@ -40,6 +64,7 @@ class _GroceriesListState extends State<GroceriesList> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      spacing: 10,
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -64,6 +89,55 @@ class _GroceriesListState extends State<GroceriesList> {
           ),
         ),
 
+        // small card list
+        SizedBox(
+          height: 105,
+          child: PageView.builder(
+            itemCount: groceriesSmall.length,
+            controller: PageController(viewportFraction: 0.70),
+            padEnds: false,
+            itemBuilder: (context, index) {
+              final item = groceriesSmall[index];
+
+              return Padding(
+                padding: EdgeInsets.only(left: index == 0 ? 16 : 8, right: 8),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color(item['color']),
+                    borderRadius: BorderRadius.circular(18),
+                  ),
+                  padding: const EdgeInsets.all(14),
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        item['image']!,
+                        height: 70,
+                        fit: BoxFit.contain,
+                      ),
+                      const SizedBox(width: 16),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            item['title']!,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+
+        // big card list
         SizedBox(
           height: 230,
           child: PageView.builder(
