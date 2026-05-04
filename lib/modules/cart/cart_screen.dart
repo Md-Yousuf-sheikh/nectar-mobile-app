@@ -1,39 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:nectar/core/store/counter_provider.dart';
 import 'package:nectar/modules/cart/widget/cart_product_card.dart';
+import 'package:provider/provider.dart';
+
+final List<Map<String, dynamic>> _items = const [
+  {
+    'title': 'Fresh Fruits & Vegetable',
+    'image': 'assets/images/items/06.png',
+    'color': Color(0xff53B175),
+  },
+  {
+    'title': 'Fresh Fruits & Vegetable',
+    'image': 'assets/images/items/07.png',
+    'color': Color(0xff53B175),
+  },
+  {
+    'title': 'Fresh Fruits & Vegetable',
+    'image': 'assets/images/items/02.png',
+    'color': Color(0xff53B175),
+  },
+  {
+    'title': 'Fresh Fruits & Vegetable',
+    'image': 'assets/images/items/03.png',
+    'color': Color(0xff53B175),
+  },
+  {
+    'title': 'Fresh Fruits & Vegetable',
+    'image': 'assets/images/items/04.png',
+    'color': Color(0xff53B175),
+  },
+];
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> _items = const [
-      {
-        'title': 'Fresh Fruits & Vegetable',
-        'image': 'assets/images/items/06.png',
-        'color': Color(0xff53B175),
-      },
-      {
-        'title': 'Fresh Fruits & Vegetable',
-        'image': 'assets/images/items/07.png',
-        'color': Color(0xff53B175),
-      },
-      {
-        'title': 'Fresh Fruits & Vegetable',
-        'image': 'assets/images/items/02.png',
-        'color': Color(0xff53B175),
-      },
-      {
-        'title': 'Fresh Fruits & Vegetable',
-        'image': 'assets/images/items/03.png',
-        'color': Color(0xff53B175),
-      },
-      {
-        'title': 'Fresh Fruits & Vegetable',
-        'image': 'assets/images/items/04.png',
-        'color': Color(0xff53B175),
-      },
-    ];
-
+    final counter = context.watch<CounterProvider>().count;
+    print('counters from cart screen: $counter');
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

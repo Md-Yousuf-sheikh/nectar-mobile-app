@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nectar/core/store/counter_provider.dart';
+import 'package:provider/provider.dart';
 
 class CartProductCard extends StatelessWidget {
   const CartProductCard({super.key, required this.item});
@@ -7,6 +9,7 @@ class CartProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final quantity = context.watch<CounterProvider>().count;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 20),
       margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -46,18 +49,29 @@ class CartProductCard extends StatelessWidget {
                 const SizedBox(height: 12),
                 Row(
                   children: [
-                    _quantityButton(Icons.remove),
-                    const Padding(
+                    _quantityButton(
+                      Icons.remove,
+                      onPressed: () {
+                        context.read<CounterProvider>().decrement();
+                      },
+                    ),
+                    Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15),
                       child: Text(
-                        '1',
+                        '$quantity',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                    _quantityButton(Icons.add, color: const Color(0xff53B175)),
+                    _quantityButton(
+                      Icons.add,
+                      color: const Color(0xff53B175),
+                      onPressed: () {
+                        context.read<CounterProvider>().increment();
+                      },
+                    ),
                     const Spacer(),
                     Text(
                       item['price'] ?? '\$4.99',
@@ -76,14 +90,21 @@ class CartProductCard extends StatelessWidget {
     );
   }
 
-  Widget _quantityButton(IconData icon, {Color? color}) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xffE2E2E2)),
+  Widget _quantityButton(
+    IconData icon, {
+    Color? color,
+    VoidCallback? onPressed,
+  }) {
+    return InkWell(
+      onTap: onPressed,
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xffE2E2E2)),
+        ),
+        child: Icon(icon, size: 20, color: color ?? Colors.grey),
       ),
-      child: Icon(icon, size: 20, color: color ?? Colors.grey),
     );
   }
 }

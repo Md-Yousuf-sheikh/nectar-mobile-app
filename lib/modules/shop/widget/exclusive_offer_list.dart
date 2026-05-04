@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nectar/core/store/items_provider.dart';
+import 'package:provider/provider.dart';
 
 class ExclusiveOfferList extends StatefulWidget {
   const ExclusiveOfferList({super.key});
@@ -10,33 +12,6 @@ class ExclusiveOfferList extends StatefulWidget {
 class _ExclusiveOfferListState extends State<ExclusiveOfferList> {
   final PageController _pageController = PageController(viewportFraction: 0.48);
 
-  final List<Map<String, String>> exclusiveOffers = const [
-    {
-      'title': 'Organic Bananas',
-      'subtitle': '7pcs, Priceg',
-      'image': 'assets/images/items/01.png',
-      'price': '\$4.99',
-    },
-    {
-      'title': 'Red Apple',
-      'subtitle': '1kg, Priceg',
-      'image': 'assets/images/items/02.png',
-      'price': '\$4.99',
-    },
-    {
-      'title': 'Red Apple',
-      'subtitle': '1kg, Priceg',
-      'image': 'assets/images/items/03.png',
-      'price': '\$4.99',
-    },
-    {
-      'title': 'Red Apple',
-      'subtitle': '1kg, Priceg',
-      'image': 'assets/images/items/04.png',
-      'price': '\$4.99',
-    },
-  ];
-
   @override
   void dispose() {
     _pageController.dispose();
@@ -45,6 +20,8 @@ class _ExclusiveOfferListState extends State<ExclusiveOfferList> {
 
   @override
   Widget build(BuildContext context) {
+    final items = context.watch<ItemsProvider>().getAllItems();
+
     return Column(
       children: [
         Padding(
@@ -74,10 +51,10 @@ class _ExclusiveOfferListState extends State<ExclusiveOfferList> {
           height: 230,
           child: PageView.builder(
             controller: _pageController,
-            itemCount: exclusiveOffers.length,
+            itemCount: items.length,
             padEnds: false,
             itemBuilder: (context, index) {
-              final item = exclusiveOffers[index];
+              final item = items[index];
 
               return Padding(
                 padding: EdgeInsets.only(left: index == 0 ? 16 : 8, right: 8),
@@ -93,7 +70,7 @@ class _ExclusiveOfferListState extends State<ExclusiveOfferList> {
                     children: [
                       Center(
                         child: Image.asset(
-                          item['image']!,
+                          item['image'] as String,
                           height: 80,
                           fit: BoxFit.contain,
                         ),
@@ -102,7 +79,7 @@ class _ExclusiveOfferListState extends State<ExclusiveOfferList> {
                       const SizedBox(height: 16),
 
                       Text(
-                        item['title']!,
+                        item['title'] as String,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -114,7 +91,7 @@ class _ExclusiveOfferListState extends State<ExclusiveOfferList> {
                       const SizedBox(height: 4),
 
                       Text(
-                        item['subtitle']!,
+                        item['subtitle'] as String,
                         style: const TextStyle(
                           fontSize: 14,
                           color: Colors.grey,
@@ -126,7 +103,7 @@ class _ExclusiveOfferListState extends State<ExclusiveOfferList> {
                       Row(
                         children: [
                           Text(
-                            item['price']!,
+                            item['price'] as String,
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
