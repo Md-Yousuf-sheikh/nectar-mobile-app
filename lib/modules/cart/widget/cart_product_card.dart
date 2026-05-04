@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nectar/core/store/counter_provider.dart';
+import 'package:nectar/core/store/cart_provider.dart';
 import 'package:provider/provider.dart';
 
 class CartProductCard extends StatelessWidget {
@@ -9,7 +9,9 @@ class CartProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final quantity = context.watch<CounterProvider>().count;
+    final quantity = context.watch<CartProvider>().getCartItemQuantity(
+      item['id'],
+    );
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 20),
       margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -47,7 +49,14 @@ class CartProductCard extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    const Icon(Icons.close, color: Colors.grey, size: 20),
+                    IconButton(
+                      padding: EdgeInsets.zero,
+                      visualDensity: VisualDensity.compact,
+                      onPressed: () {
+                        context.read<CartProvider>().removeFromCart(item['id']);
+                      },
+                      icon: Icon(Icons.close, color: Colors.grey, size: 20),
+                    ),
                   ],
                 ),
                 const Text('1kg, Price', style: TextStyle(color: Colors.grey)),
@@ -57,7 +66,9 @@ class CartProductCard extends StatelessWidget {
                     _quantityButton(
                       Icons.remove,
                       onPressed: () {
-                        context.read<CounterProvider>().decrement();
+                        context.read<CartProvider>().decrementCartItemQuantity(
+                          item['id'],
+                        );
                       },
                     ),
                     Padding(
@@ -74,7 +85,9 @@ class CartProductCard extends StatelessWidget {
                       Icons.add,
                       color: const Color(0xff53B175),
                       onPressed: () {
-                        context.read<CounterProvider>().increment();
+                        context.read<CartProvider>().incrementCartItemQuantity(
+                          item['id'],
+                        );
                       },
                     ),
                     const Spacer(),

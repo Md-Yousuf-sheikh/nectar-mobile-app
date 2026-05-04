@@ -52,4 +52,23 @@ class CartProvider extends ChangeNotifier {
   bool isItemInCart(String id) {
     return _cartItems.any((item) => item['id'] == id);
   }
+
+  // get cart item quantity
+  int getCartItemQuantity(String id) {
+    return _cartItems.firstWhere((item) => item['id'] == id)['quantity'];
+  }
+
+  // decrement cart item quantity
+  void decrementCartItemQuantity(String id) {
+    final item = _cartItems.firstWhere((item) => item['id'] == id);
+    item['quantity'] = (item['quantity'] as int) - 1;
+    notifyListeners();
+  }
+
+  // increment cart item quantity
+  void incrementCartItemQuantity(String id) {
+    final item = _cartItems.firstWhere((item) => item['id'] == id);
+    item['quantity'] = (item['quantity'] as int) + 1;
+    notifyListeners();
+  }
 }
