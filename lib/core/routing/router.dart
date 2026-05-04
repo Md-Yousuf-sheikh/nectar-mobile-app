@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nectar/modules/product_detail/product_detail.dart';
 import 'package:nectar/modules/signin/signin_screen.dart';
 import '../../modules/home/home_screen.dart';
 import '../../modules/welcome/welcome_screen.dart';
@@ -25,6 +26,11 @@ class AppRouter {
       path: PageRoutes.home,
       name: AppRoutes.home,
       builder: (context, state) => const HomeScreen(),
+    ),
+    GoRoute(
+      path: PageRoutes.productDetail,
+      name: AppRoutes.productDetail,
+      builder: (context, state) => const ProductDetailsScreen(),
     ),
     GoRoute(
       path: PageRoutes.login,

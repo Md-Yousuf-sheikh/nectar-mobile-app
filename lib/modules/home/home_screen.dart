@@ -72,6 +72,7 @@ class HomeScreen extends StatelessWidget {
             ExclusiveOfferList(),
             BestSellingList(),
             GroceriesList(),
+            SizedBox(height: 40),
           ],
         ),
       ),
