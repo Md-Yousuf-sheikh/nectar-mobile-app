@@ -2,6 +2,13 @@
 
 A new Flutter project.
 
+## Screenshots
+
+<p>
+  <img src="readme_assets/home.png" alt="Home screen" width="240">
+  <img src="readme_assets/home-2.png" alt="Home screen 2" width="240">
+</p>
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
