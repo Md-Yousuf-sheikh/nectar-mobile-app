@@ -71,7 +71,7 @@ class ShopScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 40),
+            SizedBox(height: 10),
             BannerSliderList(),
             ExclusiveOfferList(),
             BestSellingList(),
