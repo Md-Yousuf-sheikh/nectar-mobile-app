@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:nectar/modules/home/widget/banner_slider_list.dart';
-import 'package:nectar/modules/home/widget/best_selling_list.dart';
-import 'package:nectar/modules/home/widget/exclusive_offer_list.dart';
-import 'package:nectar/modules/home/widget/groceries_list.dart';
+import 'package:nectar/modules/shop/widget/banner_slider_list.dart';
+import 'package:nectar/modules/shop/widget/best_selling_list.dart';
+import 'package:nectar/modules/shop/widget/exclusive_offer_list.dart';
+import 'package:nectar/modules/shop/widget/groceries_list.dart';
 import 'package:flutter/services.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class ShopScreen extends StatelessWidget {
+  const ShopScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
