@@ -20,7 +20,9 @@ dependencies:
   # phone number picker
   intl_phone_number_input: ^0.7.5
   # image slider 
-  banner_slider: ^0.0.1
+  image_carousel_gallery: ^2.0.0
+  #  state management
+  provider: ^6.1.5+1
 
 dev_dependencies:
   flutter_test:
