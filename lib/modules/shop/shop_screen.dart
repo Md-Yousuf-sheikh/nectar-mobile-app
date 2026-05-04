@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:nectar/core/routing/routes.dart';
 import 'package:nectar/modules/shop/widget/banner_slider_list.dart';
 import 'package:nectar/modules/shop/widget/best_selling_list.dart';
 import 'package:nectar/modules/shop/widget/exclusive_offer_list.dart';
@@ -51,6 +53,8 @@ class ShopScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: TextField(
+                readOnly: true,
+                onTap: () => context.go(PageRoutes.explore),
                 decoration: InputDecoration(
                   hintText: 'Search Store',
                   prefixIcon: const Icon(Icons.search),
