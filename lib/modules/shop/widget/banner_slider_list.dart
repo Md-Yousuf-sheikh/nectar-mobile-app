@@ -53,9 +53,7 @@ class _BannerSliderListState extends State<BannerSliderList> {
             },
           ),
         ),
-
         const SizedBox(height: 8),
-
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(
