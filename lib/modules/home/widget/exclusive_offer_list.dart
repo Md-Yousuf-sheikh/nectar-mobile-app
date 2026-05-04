@@ -10,7 +10,7 @@ class ExclusiveOfferList extends StatefulWidget {
 class _ExclusiveOfferListState extends State<ExclusiveOfferList> {
   final PageController _pageController = PageController(viewportFraction: 0.48);
 
-  final List<Map<String, String>> bestSelling = const [
+  final List<Map<String, String>> exclusiveOffers = const [
     {
       'title': 'Organic Bananas',
       'subtitle': '7pcs, Priceg',
@@ -52,7 +52,7 @@ class _ExclusiveOfferListState extends State<ExclusiveOfferList> {
           child: Row(
             children: [
               const Text(
-                'Best Selling',
+                'Exclusive Offer',
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
               ),
               const Spacer(),
@@ -74,10 +74,10 @@ class _ExclusiveOfferListState extends State<ExclusiveOfferList> {
           height: 230,
           child: PageView.builder(
             controller: _pageController,
-            itemCount: bestSelling.length,
+            itemCount: exclusiveOffers.length,
             padEnds: false,
             itemBuilder: (context, index) {
-              final item = bestSelling[index];
+              final item = exclusiveOffers[index];
 
               return Padding(
                 padding: EdgeInsets.only(left: index == 0 ? 16 : 8, right: 8),

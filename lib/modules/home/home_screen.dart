@@ -3,6 +3,7 @@ import 'package:nectar/modules/home/widget/banner_slider_list.dart';
 import 'package:nectar/modules/home/widget/best_selling_list.dart';
 import 'package:nectar/modules/home/widget/exclusive_offer_list.dart';
 import 'package:nectar/modules/home/widget/groceries_list.dart';
+import 'package:flutter/services.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -11,11 +12,14 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-
       appBar: AppBar(
-        toolbarHeight: 90,
+        toolbarHeight: 75,
         centerTitle: true,
-        backgroundColor: Colors.white,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.black,
+          statusBarIconBrightness: Brightness.light,
+        ),
+        // backgroundColor: Colors.white,
         elevation: 0,
         title: Column(
           mainAxisSize: MainAxisSize.min,
@@ -63,21 +67,11 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-
-            const SizedBox(height: 40),
-            const Expanded(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    BannerSliderList(),
-                    BestSellingList(),
-                    ExclusiveOfferList(),
-                    GroceriesList(),
-                  ],
-                ),
-              ),
-            ),
+            SizedBox(height: 40),
+            BannerSliderList(),
+            ExclusiveOfferList(),
+            BestSellingList(),
+            GroceriesList(),
           ],
         ),
       ),

@@ -10,29 +10,23 @@ class GroceriesList extends StatefulWidget {
 class _GroceriesListState extends State<GroceriesList> {
   final PageController _pageController = PageController(viewportFraction: 0.48);
 
-  final List<Map<String, String>> bestSelling = const [
+  final List<Map<String, String>> groceries = const [
     {
-      'title': 'Organic Bananas',
-      'subtitle': '7pcs, Priceg',
-      'image': 'assets/images/items/01.png',
+      'title': 'Red Apple',
+      'subtitle': '1kg, Priceg',
+      'image': 'assets/images/items/05.png',
       'price': '\$4.99',
     },
     {
       'title': 'Red Apple',
       'subtitle': '1kg, Priceg',
-      'image': 'assets/images/items/02.png',
+      'image': 'assets/images/items/06.png',
       'price': '\$4.99',
     },
     {
       'title': 'Red Apple',
       'subtitle': '1kg, Priceg',
-      'image': 'assets/images/items/03.png',
-      'price': '\$4.99',
-    },
-    {
-      'title': 'Red Apple',
-      'subtitle': '1kg, Priceg',
-      'image': 'assets/images/items/04.png',
+      'image': 'assets/images/items/07.png',
       'price': '\$4.99',
     },
   ];
@@ -52,7 +46,7 @@ class _GroceriesListState extends State<GroceriesList> {
           child: Row(
             children: [
               const Text(
-                'Best Selling',
+                'Groceries',
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
               ),
               const Spacer(),
@@ -74,10 +68,10 @@ class _GroceriesListState extends State<GroceriesList> {
           height: 230,
           child: PageView.builder(
             controller: _pageController,
-            itemCount: bestSelling.length,
+            itemCount: groceries.length,
             padEnds: false,
             itemBuilder: (context, index) {
-              final item = bestSelling[index];
+              final item = groceries[index];
 
               return Padding(
                 padding: EdgeInsets.only(left: index == 0 ? 16 : 8, right: 8),
