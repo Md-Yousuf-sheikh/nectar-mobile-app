@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:nectar/modules/home/widget/banner_slider_list.dart';
+import 'package:nectar/modules/home/widget/best_selling_list.dart';
+import 'package:nectar/modules/home/widget/exclusive_offer_list.dart';
+import 'package:nectar/modules/home/widget/groceries_list.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -37,51 +41,45 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
 
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Search Store',
-                prefixIcon: const Icon(Icons.search),
-                filled: true,
-                fillColor: const Color(0xFFF2F3F2),
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 14,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                  borderSide: BorderSide.none,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Search Store',
+                  prefixIcon: const Icon(Icons.search),
+                  filled: true,
+                  fillColor: const Color(0xFFF2F3F2),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 14,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide.none,
+                  ),
                 ),
               ),
             ),
-          ),
 
-          const SizedBox(height: 40),
-
-          const Expanded(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.shopping_bag, size: 64, color: Colors.green),
-                  SizedBox(height: 16),
-                  Text(
-                    'Welcome to Nectar',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Your grocery store at fingertips',
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
-                  ),
-                ],
+            const SizedBox(height: 40),
+            const Expanded(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    BannerSliderList(),
+                    BestSellingList(),
+                    ExclusiveOfferList(),
+                    GroceriesList(),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
