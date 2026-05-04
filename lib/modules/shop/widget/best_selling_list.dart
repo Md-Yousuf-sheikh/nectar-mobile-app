@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nectar/core/store/items_provider.dart';
+import 'package:nectar/modules/shop/widget/card/shop_product_card.dart';
+import 'package:nectar/modules/shop/widget/card/shop_section_header.dart';
 import 'package:provider/provider.dart';
 
 class BestSellingList extends StatefulWidget {
@@ -20,31 +22,10 @@ class _BestSellingListState extends State<BestSellingList> {
 
   @override
   Widget build(BuildContext context) {
-    final items = context.watch<ItemsProvider>().getAllItems();
+    final items = context.watch<ItemsProvider>().getAllItems('best-selling');
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Row(
-            children: [
-              const Text(
-                'Best Selling',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
-              ),
-              const Spacer(),
-              TextButton(
-                onPressed: () {},
-                child: const Text(
-                  'See all',
-                  style: TextStyle(
-                    color: Color(0xff53B175),
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+        const ShopSectionHeader(title: 'Best Selling'),
 
         SizedBox(
           height: 230,
@@ -55,79 +36,7 @@ class _BestSellingListState extends State<BestSellingList> {
             itemBuilder: (context, index) {
               final item = items[index];
 
-              return Padding(
-                padding: EdgeInsets.only(left: index == 0 ? 16 : 8, right: 8),
-                child: Container(
-                  padding: const EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: const Color(0xffE2E2E2)),
-                    borderRadius: BorderRadius.circular(18),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Center(
-                        child: Image.asset(
-                          item['image']!,
-                          height: 80,
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-
-                      const SizedBox(height: 16),
-
-                      Text(
-                        item['title']!,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-
-                      const SizedBox(height: 4),
-
-                      Text(
-                        item['subtitle']!,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
-                        ),
-                      ),
-
-                      const Spacer(),
-
-                      Row(
-                        children: [
-                          Text(
-                            item['price']!,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          const Spacer(),
-                          Container(
-                            height: 44,
-                            width: 44,
-                            decoration: BoxDecoration(
-                              color: const Color(0xff53B175),
-                              borderRadius: BorderRadius.circular(14),
-                            ),
-                            child: const Icon(
-                              Icons.add,
-                              color: Colors.white,
-                              size: 28,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              );
+              return ShopProductCard(item: item, index: index);
             },
           ),
         ),

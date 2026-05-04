@@ -1,29 +1,88 @@
 import 'package:flutter/material.dart';
 
+final Map<String, String> itemTypes = {
+  'best-selling': 'best-selling',
+  'exclusive': 'exclusive',
+  'groceries': 'groceries',
+};
+
 final List<Map<String, dynamic>> seedCatalogItems = [
   {
-    'title': 'Organic Bananas',
-    'subtitle': '7pcs, Priceg',
+    'title': 'Broad Style Egg Noodles',
+    'subtitle': '400g',
     'image': 'assets/images/items/01.png',
-    'price': '\$4.99',
+    'price': '\$2.99',
+    'type': itemTypes['best-selling']!,
   },
   {
-    'title': 'Red Apple',
-    'subtitle': '1kg, Priceg',
+    'title': 'Red Bell Pepper',
+    'subtitle': '500g',
     'image': 'assets/images/items/02.png',
-    'price': '\$4.99',
+    'price': '\$3.49',
+    'type': itemTypes['best-selling']!,
   },
   {
-    'title': 'Red Apple',
-    'subtitle': '1kg, Priceg',
+    'title': "Chang's Egg Noodles",
+    'subtitle': '250g · 3 packs',
     'image': 'assets/images/items/03.png',
-    'price': '\$4.99',
+    'price': '\$2.49',
+    'type': itemTypes['groceries']!,
   },
   {
-    'title': 'Red Apple',
-    'subtitle': '1kg, Priceg',
+    'title': 'Fresh Dairy & Eggs',
+    'subtitle': 'Assorted · family pack',
     'image': 'assets/images/items/04.png',
+    'price': '\$18.99',
+    'type': itemTypes['groceries']!,
+  },
+  {
+    'title': 'Fresh Red Apples',
+    'subtitle': '1 kg',
+    'image': 'assets/images/items/05.png',
     'price': '\$4.99',
+    'type': itemTypes['best-selling']!,
+  },
+  {
+    'title': 'Extra Virgin Olive Oil',
+    'subtitle': '500ml',
+    'image': 'assets/images/items/06.png',
+    'price': '\$11.99',
+    'type': itemTypes['groceries']!,
+  },
+  {
+    'title': 'Sprite',
+    'subtitle': '355ml',
+    'image': 'assets/images/items/07.png',
+    'price': '\$1.29',
+    'type': itemTypes['exclusive']!,
+  },
+  {
+    'title': 'Pepsi',
+    'subtitle': '355ml',
+    'image': 'assets/images/items/08.png',
+    'price': '\$1.19',
+    'type': itemTypes['exclusive']!,
+  },
+  {
+    'title': 'Tree Top Orange Pineapple Juice',
+    'subtitle': '1.89 L',
+    'image': 'assets/images/items/09.png',
+    'price': '\$4.49',
+    'type': itemTypes['exclusive']!,
+  },
+  {
+    'title': 'Mixed Pulses & Legumes',
+    'subtitle': '1 kg',
+    'image': 'assets/images/items/10.png',
+    'price': '\$5.99',
+    'type': itemTypes['groceries']!,
+  },
+  {
+    'title': 'Long Grain White Rice',
+    'subtitle': '1 kg',
+    'image': 'assets/images/items/11.png',
+    'price': '\$3.29',
+    'type': itemTypes['best-selling']!,
   },
 ];
 
@@ -74,7 +133,7 @@ class ItemsProvider extends ChangeNotifier {
   }
 
   //  get all items
-  List<Map<String, dynamic>> getAllItems() {
-    return _items;
+  List<Map<String, dynamic>> getAllItems(String type) {
+    return _items.where((item) => item['type'] == type).toList();
   }
 }
