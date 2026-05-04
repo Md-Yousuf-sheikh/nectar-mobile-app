@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nectar/core/store/favorite_provider.dart';
 import 'package:nectar/modules/favorite/widget/favorite_product_card.dart';
+import 'package:provider/provider.dart';
 
 class FavoriteScreen extends StatelessWidget {
   // Favorite
@@ -7,33 +9,7 @@ class FavoriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> _items = const [
-      {
-        'title': 'Fresh Fruits & Vegetable',
-        'image': 'assets/images/items/06.png',
-        'color': Color(0xff53B175),
-      },
-      {
-        'title': 'Fresh Fruits & Vegetable',
-        'image': 'assets/images/items/07.png',
-        'color': Color(0xff53B175),
-      },
-      {
-        'title': 'Fresh Fruits & Vegetable',
-        'image': 'assets/images/items/02.png',
-        'color': Color(0xff53B175),
-      },
-      {
-        'title': 'Fresh Fruits & Vegetable',
-        'image': 'assets/images/items/03.png',
-        'color': Color(0xff53B175),
-      },
-      {
-        'title': 'Fresh Fruits & Vegetable',
-        'image': 'assets/images/items/04.png',
-        'color': Color(0xff53B175),
-      },
-    ];
+    final items = context.watch<FavoriteProvider>().favorites;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -50,9 +26,9 @@ class FavoriteScreen extends StatelessWidget {
         ),
       ),
       body: ListView.builder(
-        itemCount: _items.length,
+        itemCount: items.length,
         itemBuilder: (context, index) {
-          return FavoriteProductCard(item: _items[index]);
+          return FavoriteProductCard(item: items[index]);
         },
       ),
     );
