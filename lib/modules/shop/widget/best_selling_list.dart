@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nectar/core/store/items_provider.dart';
+import 'package:provider/provider.dart';
 
 class BestSellingList extends StatefulWidget {
   const BestSellingList({super.key});
@@ -10,33 +12,6 @@ class BestSellingList extends StatefulWidget {
 class _BestSellingListState extends State<BestSellingList> {
   final PageController _pageController = PageController(viewportFraction: 0.48);
 
-  final List<Map<String, String>> bestSelling = const [
-    {
-      'title': 'Organic Bananas',
-      'subtitle': '7pcs, Priceg',
-      'image': 'assets/images/items/01.png',
-      'price': '\$4.99',
-    },
-    {
-      'title': 'Red Apple',
-      'subtitle': '1kg, Priceg',
-      'image': 'assets/images/items/02.png',
-      'price': '\$4.99',
-    },
-    {
-      'title': 'Red Apple',
-      'subtitle': '1kg, Priceg',
-      'image': 'assets/images/items/03.png',
-      'price': '\$4.99',
-    },
-    {
-      'title': 'Red Apple',
-      'subtitle': '1kg, Priceg',
-      'image': 'assets/images/items/04.png',
-      'price': '\$4.99',
-    },
-  ];
-
   @override
   void dispose() {
     _pageController.dispose();
@@ -45,6 +20,7 @@ class _BestSellingListState extends State<BestSellingList> {
 
   @override
   Widget build(BuildContext context) {
+    final items = context.watch<ItemsProvider>().getAllItems();
     return Column(
       children: [
         Padding(
@@ -74,10 +50,10 @@ class _BestSellingListState extends State<BestSellingList> {
           height: 230,
           child: PageView.builder(
             controller: _pageController,
-            itemCount: bestSelling.length,
+            itemCount: items.length,
             padEnds: false,
             itemBuilder: (context, index) {
-              final item = bestSelling[index];
+              final item = items[index];
 
               return Padding(
                 padding: EdgeInsets.only(left: index == 0 ? 16 : 8, right: 8),
