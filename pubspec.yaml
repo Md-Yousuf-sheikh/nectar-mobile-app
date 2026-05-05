@@ -23,6 +23,8 @@ dependencies:
   image_carousel_gallery: ^2.0.0
   #  state management
   provider: ^6.1.5+1
+  # svg
+  flutter_svg: ^2.0.17
 
 dev_dependencies:
   flutter_test:
@@ -49,6 +51,7 @@ flutter:
     - assets/
     - assets/images/
     - assets/icons/
+    - assets/svg/
     - assets/images/bg/
     - assets/images/banner/
     - assets/images/items/

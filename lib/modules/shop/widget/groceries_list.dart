@@ -45,7 +45,7 @@ class _GroceriesListState extends State<GroceriesList> {
               final item = groceriesSmall[index];
 
               return InkWell(
-                onTap: () => context.push(PageRoutes.productDetail),
+                onTap: () => context.push(PageRoutes.productDetail, extra: item),
                 child: Padding(
                   padding: EdgeInsets.only(left: index == 0 ? 16 : 8, right: 8),
                   child: Container(

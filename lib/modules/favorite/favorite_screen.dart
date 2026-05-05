@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nectar/core/store/favorite_provider.dart';
 import 'package:nectar/modules/favorite/widget/favorite_product_card.dart';
+import 'package:provider/provider.dart';
 
 class FavoriteScreen extends StatelessWidget {
   // Favorite
@@ -7,33 +9,7 @@ class FavoriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> _items = const [
-      {
-        'title': 'Fresh Fruits & Vegetable',
-        'image': 'assets/images/items/06.png',
-        'color': Color(0xff53B175),
-      },
-      {
-        'title': 'Fresh Fruits & Vegetable',
-        'image': 'assets/images/items/07.png',
-        'color': Color(0xff53B175),
-      },
-      {
-        'title': 'Fresh Fruits & Vegetable',
-        'image': 'assets/images/items/02.png',
-        'color': Color(0xff53B175),
-      },
-      {
-        'title': 'Fresh Fruits & Vegetable',
-        'image': 'assets/images/items/03.png',
-        'color': Color(0xff53B175),
-      },
-      {
-        'title': 'Fresh Fruits & Vegetable',
-        'image': 'assets/images/items/04.png',
-        'color': Color(0xff53B175),
-      },
-    ];
+    final items = context.watch<FavoriteProvider>().favorites;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -49,12 +25,24 @@ class FavoriteScreen extends StatelessWidget {
           child: Container(height: 1, color: const Color(0xffE2E2E2)),
         ),
       ),
-      body: ListView.builder(
-        itemCount: _items.length,
-        itemBuilder: (context, index) {
-          return FavoriteProductCard(item: _items[index]);
-        },
-      ),
+      body: items.isEmpty
+          ? const Center(
+              child: Text(
+                'No items in favorite',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey,
+                  fontFeatures: [FontFeature.enable('smcp')],
+                ),
+              ),
+            )
+          : ListView.builder(
+              itemCount: items.length,
+              itemBuilder: (context, index) {
+                return FavoriteProductCard(item: items[index]);
+              },
+            ),
     );
   }
 }
