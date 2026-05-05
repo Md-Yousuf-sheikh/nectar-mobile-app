@@ -8,7 +8,7 @@ import 'package:nectar/core/store/favorite_provider.dart';
 import 'package:nectar/core/store/items_provider.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   SystemChrome.setSystemUIOverlayStyle(
@@ -18,16 +18,28 @@ void main() {
     ),
   );
 
+  final counterProvider = CounterProvider();
+  final cartProvider = CartProvider();
+  final favoriteProvider = FavoriteProvider();
+  final authProvider = AuthProvider();
+
+  await Future.wait([
+    counterProvider.loadFromStorage(),
+    cartProvider.loadFromStorage(),
+    favoriteProvider.loadFromStorage(),
+    authProvider.loadFromStorage(),
+  ]);
+
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => CounterProvider()),
+        ChangeNotifierProvider<CounterProvider>.value(value: counterProvider),
         ChangeNotifierProvider(create: (_) => ItemsProvider()),
-        ChangeNotifierProvider(create: (_) => CartProvider()),
-        ChangeNotifierProvider(create: (_) => FavoriteProvider()),
-        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider<CartProvider>.value(value: cartProvider),
+        ChangeNotifierProvider<FavoriteProvider>.value(value: favoriteProvider),
+        ChangeNotifierProvider<AuthProvider>.value(value: authProvider),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
