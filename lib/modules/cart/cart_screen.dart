@@ -79,12 +79,22 @@ class CartScreen extends StatelessWidget {
                     totalPrice: total,
                   ),
                   const SizedBox(height: 12),
-                  _checkoutStaticRow(title: 'Delivery', value: 'Cash on Delivery'),
-                  _checkoutStaticRow(title: 'Total Cost', value: total, isBold: true),
+                  _checkoutStaticRow(
+                    title: 'Delivery',
+                    value: 'Cash on Delivery',
+                  ),
+                  _checkoutStaticRow(
+                    title: 'Total Cost',
+                    value: total,
+                    isBold: true,
+                  ),
                   const SizedBox(height: 12),
                   RichText(
                     text: TextSpan(
-                      style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
+                      style: TextStyle(
+                        color: Colors.grey.shade600,
+                        fontSize: 13,
+                      ),
                       children: const [
                         TextSpan(
                           text: 'By placing an order you agree to our\n',

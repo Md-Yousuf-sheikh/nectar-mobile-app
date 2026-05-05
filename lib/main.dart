@@ -57,6 +57,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'Nectar',
       theme: ThemeData(
+        // appBarTheme:
         // colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
       ),
       routerConfig: AppRouter.instance,
