@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:nectar/core/routing/routes.dart';
+import 'package:nectar/core/store/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final auth = context.watch<AuthProvider>();
     // Defined list of items for better maintainability
     final List<Map<String, dynamic>> accountItems = [
       {'title': 'Orders', 'icon': Icons.shopping_bag_outlined},
@@ -41,9 +46,9 @@ class AccountScreen extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            const Text(
-                              'Afsar Hossen',
-                              style: TextStyle(
+                            Text(
+                              auth.name.isNotEmpty ? auth.name : 'Guest User',
+                              style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -57,7 +62,9 @@ class AccountScreen extends StatelessWidget {
                           ],
                         ),
                         Text(
-                          'imshuvo97@gmail.com',
+                          auth.email.isNotEmpty
+                              ? auth.email
+                              : 'guest@nectar.app',
                           style: TextStyle(
                             color: Colors.grey.shade600,
                             fontSize: 14,
@@ -117,7 +124,10 @@ class AccountScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: TextButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.read<AuthProvider>().logout();
+                      context.go(PageRoutes.authLogin);
+                    },
                     icon: const Icon(Icons.logout, color: Colors.green),
                     label: const Text(
                       'Log Out',

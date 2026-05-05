@@ -3,6 +3,11 @@ abstract class PageRoutes {
   static const String root = '/';
   // Auth Routes
   static const String login = '/${AppRoutes.login}';
+  static const String number = '/${AppRoutes.number}';
+  static const String verification = '/${AppRoutes.verification}';
+  static const String selectLocation = '/${AppRoutes.selectLocation}';
+  static const String authLogin = '/${AppRoutes.authLogin}';
+  static const String signup = '/${AppRoutes.signup}';
   static const String notFound = '/${AppRoutes.notFound}';
 
   // bottom navigation routes
@@ -19,6 +24,11 @@ abstract class PageRoutes {
 abstract class AppRoutes {
   // Auth Routes
   static const String login = 'login';
+  static const String number = 'number';
+  static const String verification = 'verification';
+  static const String selectLocation = 'selectLocation';
+  static const String authLogin = 'authLogin';
+  static const String signup = 'signup';
   static const String notFound = '404';
 
   // bottom navigation routes

@@ -1,31 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nectar/core/routing/router.dart';
+import 'package:nectar/core/store/auth_provider.dart';
 import 'package:nectar/core/store/cart_provider.dart';
 import 'package:nectar/core/store/counter_provider.dart';
 import 'package:nectar/core/store/favorite_provider.dart';
 import 'package:nectar/core/store/items_provider.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.black,
-      statusBarIconBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.light, // Android
+      statusBarBrightness: Brightness.dark, // iOS
     ),
   );
+
+  final counterProvider = CounterProvider();
+  final cartProvider = CartProvider();
+  final favoriteProvider = FavoriteProvider();
+  final authProvider = AuthProvider();
+
+  await Future.wait([
+    counterProvider.loadFromStorage(),
+    cartProvider.loadFromStorage(),
+    favoriteProvider.loadFromStorage(),
+    authProvider.loadFromStorage(),
+  ]);
 
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => CounterProvider()),
+        ChangeNotifierProvider<CounterProvider>.value(value: counterProvider),
         ChangeNotifierProvider(create: (_) => ItemsProvider()),
-        ChangeNotifierProvider(create: (_) => CartProvider()),
-        ChangeNotifierProvider(create: (_) => FavoriteProvider()),
+        ChangeNotifierProvider<CartProvider>.value(value: cartProvider),
+        ChangeNotifierProvider<FavoriteProvider>.value(value: favoriteProvider),
+        ChangeNotifierProvider<AuthProvider>.value(value: authProvider),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
@@ -38,7 +53,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'Nectar',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
+        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
       ),
       routerConfig: AppRouter.instance,
     );

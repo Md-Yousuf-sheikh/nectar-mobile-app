@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nectar/core/store/auth_provider.dart';
 import 'package:nectar/core/widget/bottom_tabs/BottomTabs.dart';
 import 'package:nectar/modules/account/account_screen.dart';
 import 'package:nectar/modules/cart/cart_screen.dart';
 import 'package:nectar/modules/explore/explore_screen.dart';
 import 'package:nectar/modules/favorite/Favorite_screen.dart';
 import 'package:nectar/modules/product_detail/product_detail.dart';
+import 'package:nectar/modules/signin/login_screen.dart';
+import 'package:nectar/modules/signin/number_screen.dart';
+import 'package:nectar/modules/signin/select_location_screen.dart';
 import 'package:nectar/modules/signin/signin_screen.dart';
+import 'package:nectar/modules/signin/signup_screen.dart';
+import 'package:nectar/modules/signin/verification_screen.dart';
+import 'package:provider/provider.dart';
 import '../../modules/shop/shop_screen.dart';
 import '../../modules/welcome/welcome_screen.dart';
 import 'routes.dart';
@@ -14,11 +21,44 @@ import 'routes.dart';
 class AppRouter {
   static final GoRouter instance = GoRouter(
     initialLocation: PageRoutes.root,
+    redirect: (context, state) {
+      final isAuthenticated = context.read<AuthProvider>().isAuthenticated;
+      final location = state.matchedLocation;
+
+      if (!isAuthenticated && _isProtectedRoute(location)) {
+        return PageRoutes.authLogin;
+      }
+
+      if (isAuthenticated && _isAuthRoute(location)) {
+        return PageRoutes.shop;
+      }
+
+      return null;
+    },
     routes: _routes,
     errorBuilder: (context, state) => Scaffold(
       body: Center(child: Text('Page not found: ${state.matchedLocation}')),
     ),
   );
+
+  static bool _isProtectedRoute(String location) {
+    return location == PageRoutes.shop ||
+        location == PageRoutes.cart ||
+        location == PageRoutes.favorite ||
+        location == PageRoutes.explore ||
+        location == PageRoutes.account ||
+        location == PageRoutes.productDetail;
+  }
+
+  static bool _isAuthRoute(String location) {
+    return location == PageRoutes.root ||
+        location == PageRoutes.login ||
+        location == PageRoutes.authLogin ||
+        location == PageRoutes.signup ||
+        location == PageRoutes.number ||
+        location == PageRoutes.verification ||
+        location == PageRoutes.selectLocation;
+  }
 
   /// Route definitions
   static final List<RouteBase> _routes = [
@@ -33,6 +73,31 @@ class AppRouter {
       path: PageRoutes.login,
       name: AppRoutes.login,
       builder: (context, state) => const SigninScreen(),
+    ),
+    GoRoute(
+      path: PageRoutes.number,
+      name: AppRoutes.number,
+      builder: (context, state) => const NumberScreen(),
+    ),
+    GoRoute(
+      path: PageRoutes.verification,
+      name: AppRoutes.verification,
+      builder: (context, state) => const VerificationScreen(),
+    ),
+    GoRoute(
+      path: PageRoutes.selectLocation,
+      name: AppRoutes.selectLocation,
+      builder: (context, state) => const SelectLocationScreen(),
+    ),
+    GoRoute(
+      path: PageRoutes.authLogin,
+      name: AppRoutes.authLogin,
+      builder: (context, state) => const LoginScreen(),
+    ),
+    GoRoute(
+      path: PageRoutes.signup,
+      name: AppRoutes.signup,
+      builder: (context, state) => const SignupScreen(),
     ),
 
     // bottom navigation routes

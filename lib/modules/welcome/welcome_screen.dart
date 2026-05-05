@@ -52,7 +52,7 @@ class WelcomeScreen extends StatelessWidget {
               SizedBox(height: 30),
               // btn
               ElevatedButton(
-                onPressed: () => context.go(PageRoutes.shop),
+                onPressed: () => context.go(PageRoutes.authLogin),
                 child: Text(
                   'Get Started',
                   style: TextStyle(fontSize: 16, color: Colors.white),

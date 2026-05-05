@@ -17,10 +17,6 @@ class ShopScreen extends StatelessWidget {
       appBar: AppBar(
         toolbarHeight: 75,
         centerTitle: true,
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: Colors.black,
-          statusBarIconBrightness: Brightness.light,
-        ),
         // backgroundColor: Colors.white,
         elevation: 0,
         title: Column(
