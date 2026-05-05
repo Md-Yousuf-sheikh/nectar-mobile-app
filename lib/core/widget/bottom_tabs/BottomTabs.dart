@@ -18,7 +18,7 @@ class BottomTabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    final selectedColor = scheme.primary;
+    final selectedColor = Colors.green;
     final unselectedColor = scheme.onSurfaceVariant;
 
     return BottomNavigationBar(
@@ -27,30 +27,18 @@ class BottomTabs extends StatelessWidget {
       type: BottomNavigationBarType.fixed,
       selectedItemColor: selectedColor,
       unselectedItemColor: unselectedColor,
-      // selectedItemColor: activeColor,
-      // selectedFontSize: labelFontSize,
-      // unselectedFontSize: labelFontSize,
-      selectedLabelStyle: TextStyle(
-        // fontSize: labelFontSize,
-        fontWeight: FontWeight.bold,
-      ),
-      unselectedLabelStyle: TextStyle(
-        // fontSize: labelFontSize,
-        fontWeight: FontWeight.normal,
-      ),
-
+      selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+      unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal),
       items: [
         BottomNavigationBarItem(
           label: 'Shop',
-          backgroundColor: Colors.red,
-
           icon: SvgPicture.asset(
             'assets/svg/shop_icon.svg',
             colorFilter: ColorFilter.mode(unselectedColor, BlendMode.srcIn),
           ),
           activeIcon: SvgPicture.asset(
             'assets/svg/shop_icon.svg',
-            colorFilter: ColorFilter.mode(Colors.green, BlendMode.srcIn),
+            colorFilter: ColorFilter.mode(selectedColor, BlendMode.srcIn),
           ),
         ),
         BottomNavigationBarItem(
@@ -61,7 +49,7 @@ class BottomTabs extends StatelessWidget {
           ),
           activeIcon: SvgPicture.asset(
             'assets/svg/cart_icon.svg',
-            colorFilter: ColorFilter.mode(Colors.green, BlendMode.srcIn),
+            colorFilter: ColorFilter.mode(selectedColor, BlendMode.srcIn),
           ),
         ),
         BottomNavigationBarItem(
@@ -72,7 +60,7 @@ class BottomTabs extends StatelessWidget {
           ),
           activeIcon: SvgPicture.asset(
             'assets/svg/favorite_icon.svg',
-            colorFilter: ColorFilter.mode(Colors.green, BlendMode.srcIn),
+            colorFilter: ColorFilter.mode(selectedColor, BlendMode.srcIn),
           ),
         ),
         BottomNavigationBarItem(
@@ -83,7 +71,7 @@ class BottomTabs extends StatelessWidget {
           ),
           activeIcon: SvgPicture.asset(
             'assets/svg/explore_icon.svg',
-            colorFilter: ColorFilter.mode(Colors.green, BlendMode.srcIn),
+            colorFilter: ColorFilter.mode(selectedColor, BlendMode.srcIn),
           ),
         ),
         BottomNavigationBarItem(
@@ -94,32 +82,10 @@ class BottomTabs extends StatelessWidget {
           ),
           activeIcon: SvgPicture.asset(
             'assets/svg/user_icon.svg',
-            colorFilter: ColorFilter.mode(Colors.green, BlendMode.srcIn),
+            colorFilter: ColorFilter.mode(selectedColor, BlendMode.srcIn),
           ),
         ),
       ],
-      // onTap: (index) {
-      //   switch (index) {
-      //     case 0:
-      //       context.go(PageRoutes.shop);
-      //       break;
-      //     case 1:
-      //       context.go(PageRoutes.cart);
-      //       break;
-      //     case 2:
-      //       context.go(PageRoutes.favorite);
-      //       break;
-      //     case 3:
-      //       context.go(PageRoutes.explore);
-      //       break;
-      //     case 4:
-      //       context.go(PageRoutes.account);
-      //       break;
-
-      //     default:
-      //       break;
-      //   }
-      // },
     );
   }
 }
