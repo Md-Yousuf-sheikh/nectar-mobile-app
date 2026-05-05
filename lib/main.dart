@@ -11,12 +11,16 @@ import 'package:provider/provider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.black,
-      statusBarIconBrightness: Brightness.light, // Android
-      statusBarBrightness: Brightness.dark, // iOS
-    ),
+  // SystemChrome.setSystemUIOverlayStyle(
+  //   const SystemUiOverlayStyle(
+  //     statusBarColor: Colors.black,
+  //     statusBarIconBrightness: Brightness.dark, // Android
+  //     statusBarBrightness: Brightness.dark, // iOS
+  //   ),
+  // );
+  SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.manual,
+    overlays: SystemUiOverlay.values,
   );
 
   final counterProvider = CounterProvider();
@@ -53,6 +57,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'Nectar',
       theme: ThemeData(
+        // appBarTheme:
         // colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
       ),
       routerConfig: AppRouter.instance,
