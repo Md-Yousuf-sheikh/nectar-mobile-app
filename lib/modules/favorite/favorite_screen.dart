@@ -25,12 +25,24 @@ class FavoriteScreen extends StatelessWidget {
           child: Container(height: 1, color: const Color(0xffE2E2E2)),
         ),
       ),
-      body: ListView.builder(
-        itemCount: items.length,
-        itemBuilder: (context, index) {
-          return FavoriteProductCard(item: items[index]);
-        },
-      ),
+      body: items.isEmpty
+          ? const Center(
+              child: Text(
+                'No items in favorite',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey,
+                  fontFeatures: [FontFeature.enable('smcp')],
+                ),
+              ),
+            )
+          : ListView.builder(
+              itemCount: items.length,
+              itemBuilder: (context, index) {
+                return FavoriteProductCard(item: items[index]);
+              },
+            ),
     );
   }
 }

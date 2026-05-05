@@ -5,75 +5,62 @@ class AccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final List<Map<String, dynamic>> accountItems = [
-    //   {
-    //     'title': 'My Orders',
-    //     'icon': Icons.shopping_bag,
-    //     'route': PageRoutes.productDetail,
-    //   },
-    //   {
-    //     'title': 'My Details',
-    //     'icon': Icons.shopping_bag,
-    //     'route': PageRoutes.productDetail,
-    //   },
-    //   {
-    //     'title': 'Delivery Address',
-    //     'icon': Icons.shopping_bag,
-    //     'route': PageRoutes.productDetail,
-    //   },
-    // ];
+    // Defined list of items for better maintainability
+    final List<Map<String, dynamic>> accountItems = [
+      {'title': 'Orders', 'icon': Icons.shopping_bag_outlined},
+      {'title': 'My Details', 'icon': Icons.badge_outlined},
+      {'title': 'Delivery Address', 'icon': Icons.location_on_outlined},
+      {'title': 'Payment Methods', 'icon': Icons.credit_card_outlined},
+      {'title': 'Promo Cord', 'icon': Icons.confirmation_number_outlined},
+      {'title': 'Notifications', 'icon': Icons.notifications_none_outlined},
+      {'title': 'Help', 'icon': Icons.help_outline},
+      {'title': 'About', 'icon': Icons.info_outline},
+    ];
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: SafeArea(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 10),
-              // profile image
+              const SizedBox(height: 20),
+              // Profile Header
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
-                  spacing: 10,
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    CircleAvatar(
+                    const CircleAvatar(
                       radius: 35,
-                      backgroundColor: Colors.grey.shade200,
-                      child: Icon(Icons.person, size: 30),
+                      backgroundImage: NetworkImage(
+                        'https://via.placeholder.com/150',
+                      ), // Replace with actual image
                     ),
+                    const SizedBox(width: 15),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          spacing: 4,
                           children: [
-                            Text(
-                              'Ariful Islam',
+                            const Text(
+                              'Afsar Hossen',
                               style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                            IconButton(
-                              onPressed: () {},
-                              style: IconButton.styleFrom(
-                                padding: EdgeInsets.zero,
-                                minimumSize: Size.zero,
-                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                              ),
-                              icon: Icon(
-                                Icons.edit,
-                                size: 16,
-                                color: Colors.green,
-                              ),
+                            const SizedBox(width: 5),
+                            Icon(
+                              Icons.edit_outlined,
+                              size: 18,
+                              color: Colors.green.shade600,
                             ),
                           ],
                         ),
                         Text(
-                          'ariful.islam@example.com',
+                          'imshuvo97@gmail.com',
                           style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey.shade500,
+                            color: Colors.grey.shade600,
+                            fontSize: 14,
                           ),
                         ),
                       ],
@@ -81,17 +68,68 @@ class AccountScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
-              Divider(height: 2, color: Colors.grey.shade300),
-              ListView.builder(
+              const SizedBox(height: 25),
+              const Divider(height: 1),
+
+              // Menu List
+              ListView.separated(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: 30,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: accountItems.length,
+                separatorBuilder: (context, index) =>
+                    const Divider(height: 1, indent: 20),
                 itemBuilder: (context, index) {
-                  return ListTile(title: Text("hh"));
+                  final item = accountItems[index];
+                  return ListTile(
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 5,
+                    ),
+                    leading: Icon(item['icon'], color: Colors.black87),
+                    title: Text(
+                      item['title'],
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    trailing: const Icon(
+                      Icons.arrow_forward_ios,
+                      size: 16,
+                      color: Colors.black,
+                    ),
+                    onTap: () {
+                      // Navigate using your PageRoutes logic
+                    },
+                  );
                 },
               ),
-              // list of items
+              const Divider(height: 1),
+
+              // Logout Button
+              Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: Container(
+                  width: double.infinity,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade100,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: TextButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(Icons.logout, color: Colors.green),
+                    label: const Text(
+                      'Log Out',
+                      style: TextStyle(
+                        color: Colors.green,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
