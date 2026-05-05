@@ -15,7 +15,7 @@ class CartProductCard extends StatelessWidget {
       item['id'],
     );
     return InkWell(
-      onTap: () => context.push(PageRoutes.productDetail),
+      onTap: () => context.push(PageRoutes.productDetail, extra: item),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 20),
         margin: const EdgeInsets.symmetric(horizontal: 20),

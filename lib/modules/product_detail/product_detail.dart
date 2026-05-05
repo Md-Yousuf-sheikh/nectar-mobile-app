@@ -1,10 +1,73 @@
 import 'package:flutter/material.dart';
+import 'package:nectar/core/store/cart_provider.dart';
+import 'package:nectar/core/store/favorite_provider.dart';
+import 'package:provider/provider.dart';
 
-class ProductDetailsScreen extends StatelessWidget {
-  const ProductDetailsScreen({super.key});
+class ProductDetailsScreen extends StatefulWidget {
+  const ProductDetailsScreen({super.key, required this.product});
+
+  final Map<String, dynamic> product;
+
+  @override
+  State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
+}
+
+class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+  String get _itemId {
+    final raw = widget.product['id'];
+    if (raw is String && raw.isNotEmpty) return raw;
+    return _image;
+  }
+
+  String get _title => _readValue('title', 'Naturel Red Apple');
+
+  String get _subtitle => _readValue('subtitle', '1kg, Price');
+
+  String get _price => _readValue('price', '\$4.99');
+
+  String get _image => _readValue('image', 'assets/images/items/05.png');
+
+  String get _description => _readValue(
+    'description',
+    '$_title is fresh and nutritious. It is a great choice for everyday meals.',
+  );
+
+  String _readValue(String key, String fallback) {
+    final value = widget.product[key];
+    if (value is String && value.trim().isNotEmpty) {
+      return value;
+    }
+    return fallback;
+  }
+
+  void _increaseQuantity(CartProvider cartProvider) {
+    final inCart = cartProvider.isItemInCart(_itemId);
+    if (!inCart) {
+      cartProvider.addToCart({...widget.product, 'id': _itemId});
+      return;
+    }
+    cartProvider.incrementCartItemQuantity(_itemId);
+  }
+
+  void _decreaseQuantity(CartProvider cartProvider) {
+    final inCart = cartProvider.isItemInCart(_itemId);
+    if (!inCart) return;
+    final quantity = cartProvider.getCartItemQuantity(_itemId);
+    if (quantity <= 1) {
+      cartProvider.removeFromCart(_itemId);
+      return;
+    }
+    cartProvider.decrementCartItemQuantity(_itemId);
+  }
 
   @override
   Widget build(BuildContext context) {
+    final cartProvider = context.watch<CartProvider>();
+    final favoriteProvider = context.watch<FavoriteProvider>();
+    final isInCart = cartProvider.isItemInCart(_itemId);
+    final quantity = isInCart ? cartProvider.getCartItemQuantity(_itemId) : 0;
+    final isFavorite = favoriteProvider.isFavorite(_itemId);
+
     return Scaffold(
       backgroundColor: Colors.white,
       // We use Stack to keep the header "Fixed" on top of the scrolling content
@@ -29,7 +92,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(top: 40),
                       child: Image.asset(
-                        'assets/images/items/05.png',
+                        _image,
                         height: 200,
                         fit: BoxFit.contain,
                       ),
@@ -49,26 +112,47 @@ class ProductDetailsScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            "Naturel Red Apple",
-                            style: TextStyle(
+                          Text(
+                            _title,
+                            style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Icon(Icons.favorite_border, color: Colors.grey[400]),
+                          IconButton(
+                            visualDensity: VisualDensity.compact,
+                            onPressed: () {
+                              context.read<FavoriteProvider>().toggleFavorite({
+                                ...widget.product,
+                                'id': _itemId,
+                              });
+                            },
+                            icon: Icon(
+                              isFavorite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color: isFavorite
+                                  ? const Color(0xffFF324B)
+                                  : Colors.grey[400],
+                            ),
+                          ),
                         ],
                       ),
-                      const Text(
-                        "1kg, Price",
-                        style: TextStyle(color: Colors.grey),
+                      Text(
+                        _subtitle,
+                        style: const TextStyle(color: Colors.grey),
                       ),
                       const SizedBox(height: 25),
 
                       // Price and Counter
                       Row(
                         children: [
-                          Icon(Icons.remove, color: Colors.grey[400]),
+                          InkWell(
+                            onTap: () => _decreaseQuantity(
+                              context.read<CartProvider>(),
+                            ),
+                            child: Icon(Icons.remove, color: Colors.grey[400]),
+                          ),
                           const SizedBox(width: 15),
                           Container(
                             padding: const EdgeInsets.symmetric(
@@ -79,17 +163,25 @@ class ProductDetailsScreen extends StatelessWidget {
                               border: Border.all(color: Colors.grey.shade300),
                               borderRadius: BorderRadius.circular(15),
                             ),
-                            child: const Text(
-                              "1",
+                            child: Text(
+                              '$quantity',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ),
                           const SizedBox(width: 15),
-                          const Icon(Icons.add, color: Color(0xFF53B175)),
+                          InkWell(
+                            onTap: () => _increaseQuantity(
+                              context.read<CartProvider>(),
+                            ),
+                            child: const Icon(
+                              Icons.add,
+                              color: Color(0xFF53B175),
+                            ),
+                          ),
                           const Spacer(),
-                          const Text(
-                            "\$4.99",
-                            style: TextStyle(
+                          Text(
+                            _price,
+                            style: const TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.bold,
                             ),
@@ -113,7 +205,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         tilePadding: EdgeInsets.zero,
                         title: Text(
                           "Product Detail",
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                           ),
@@ -121,10 +213,10 @@ class ProductDetailsScreen extends StatelessWidget {
 
                         children: [
                           Text(
-                            "Apples are nutritious. Apples may be good for weight loss. Apples may be good for your heart.",
-                            style: TextStyle(color: Colors.grey),
+                            _description,
+                            style: const TextStyle(color: Colors.grey),
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                         ],
                       ),
 
@@ -218,10 +310,20 @@ class ProductDetailsScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(15),
             ),
           ),
-          onPressed: () {},
-          child: const Text(
-            "Add To Basket",
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          onPressed: () {
+            final provider = context.read<CartProvider>();
+            if (isInCart) {
+              provider.removeFromCart(_itemId);
+              return;
+            }
+            provider.addToCart({...widget.product, 'id': _itemId});
+          },
+          child: Text(
+            isInCart ? "Remove From Basket" : "Add To Basket",
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),

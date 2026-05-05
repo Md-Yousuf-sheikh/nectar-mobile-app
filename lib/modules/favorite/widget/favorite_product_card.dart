@@ -15,7 +15,7 @@ class _FavoriteProductCardState extends State<FavoriteProductCard> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.push(PageRoutes.productDetail),
+      onTap: () => context.push(PageRoutes.productDetail, extra: widget.item),
       child: Container(
         padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(

@@ -34,7 +34,7 @@ class _ShopProductCardState extends State<ShopProductCard> {
     return Padding(
       padding: EdgeInsets.only(left: widget.index == 0 ? 16 : 8, right: 8),
       child: InkWell(
-        onTap: () => context.push(PageRoutes.productDetail),
+        onTap: () => context.push(PageRoutes.productDetail, extra: widget.item),
         child: Container(
           padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(

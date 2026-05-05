@@ -96,7 +96,14 @@ class AppRouter {
     GoRoute(
       path: PageRoutes.productDetail,
       name: AppRoutes.productDetail,
-      builder: (context, state) => const ProductDetailsScreen(),
+      builder: (context, state) {
+        final product = state.extra;
+        return ProductDetailsScreen(
+          product: product is Map<String, dynamic>
+              ? product
+              : const <String, dynamic>{},
+        );
+      },
     ),
   ];
 }
