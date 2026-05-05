@@ -30,31 +30,24 @@ class CartScreen extends StatelessWidget {
         ),
       ),
 
-      body: Expanded(
-        child: Column(
-          children: [
-            items.isEmpty
-                ? Center(
-                    child: Text(
-                      'No items in cart',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.grey,
-                        fontFeatures: [FontFeature.enable('smcp')],
-                      ),
-                    ),
-                  )
-                : ListView.builder(
-                    padding: const EdgeInsets.only(bottom: 100),
-                    itemCount: items.length,
-                    itemBuilder: (context, index) {
-                      return CartProductCard(item: items[index]);
-                    },
-                  ),
-          ],
-        ),
-      ),
+      body: items.isEmpty
+          ? const Center(
+              child: Text(
+                'No items in cart',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey,
+                ),
+              ),
+            )
+          : ListView.builder(
+              padding: const EdgeInsets.only(bottom: 100),
+              itemCount: items.length,
+              itemBuilder: (context, index) {
+                return CartProductCard(item: items[index]);
+              },
+            ),
     );
   }
 }
