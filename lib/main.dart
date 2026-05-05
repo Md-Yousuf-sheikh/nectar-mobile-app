@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nectar/core/routing/router.dart';
+import 'package:nectar/core/store/auth_provider.dart';
 import 'package:nectar/core/store/cart_provider.dart';
 import 'package:nectar/core/store/counter_provider.dart';
 import 'package:nectar/core/store/favorite_provider.dart';
@@ -24,6 +25,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => ItemsProvider()),
         ChangeNotifierProvider(create: (_) => CartProvider()),
         ChangeNotifierProvider(create: (_) => FavoriteProvider()),
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
       ],
       child: MyApp(),
     ),

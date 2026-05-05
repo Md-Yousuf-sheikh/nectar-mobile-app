@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+// import 'package:nectar/core/routing/routes.dart';
 import 'package:nectar/core/store/cart_provider.dart';
 import 'package:nectar/modules/cart/widget/cart_product_card.dart';
 import 'package:provider/provider.dart';
+// import 'package:go_router/go_router.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -28,25 +30,31 @@ class CartScreen extends StatelessWidget {
         ),
       ),
 
-      body: items.isEmpty
-          ? Center(
-              child: Text(
-                'No items in cart',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.grey,
-                  fontFeatures: [FontFeature.enable('smcp')],
-                ),
-              ),
-            )
-          : ListView.builder(
-              padding: const EdgeInsets.only(bottom: 100),
-              itemCount: items.length,
-              itemBuilder: (context, index) {
-                return CartProductCard(item: items[index]);
-              },
-            ),
+      body: Expanded(
+        child: Column(
+          children: [
+            items.isEmpty
+                ? Center(
+                    child: Text(
+                      'No items in cart',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey,
+                        fontFeatures: [FontFeature.enable('smcp')],
+                      ),
+                    ),
+                  )
+                : ListView.builder(
+                    padding: const EdgeInsets.only(bottom: 100),
+                    itemCount: items.length,
+                    itemBuilder: (context, index) {
+                      return CartProductCard(item: items[index]);
+                    },
+                  ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nectar/core/routing/routes.dart';
+import 'package:nectar/core/store/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -75,7 +77,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: double.infinity,
                 height: 56,
                 child: ElevatedButton(
-                  onPressed: () => context.go(PageRoutes.shop),
+                  onPressed: () {
+                    context.read<AuthProvider>().login(
+                      email: _emailController.text,
+                      password: _passwordController.text,
+                    );
+                    if (context.read<AuthProvider>().isAuthenticated) {
+                      context.go(PageRoutes.shop);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Please enter email and password'),
+                        ),
+                      );
+                    }
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF53B175),
                     shape: RoundedRectangleBorder(
