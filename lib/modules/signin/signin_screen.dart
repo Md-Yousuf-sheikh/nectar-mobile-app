@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:nectar/core/routing/routes.dart';
 import 'package:nectar/modules/signin/widget/phone_number_input.dart';
 
 class SigninScreen extends StatelessWidget {
   const SigninScreen({super.key});
 
   void _goToHome(BuildContext context) {
-    Navigator.pushReplacementNamed(context, '/home');
+    context.go(PageRoutes.authLogin);
   }
 
   @override

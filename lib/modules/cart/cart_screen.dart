@@ -23,7 +23,7 @@ class CartScreen extends StatelessWidget {
           child: Container(height: 1, color: const Color(0xffE2E2E2)),
         ),
         title: const Text(
-          'Cart',
+          'My Cart',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
         ),
       ),
